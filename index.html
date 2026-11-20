@@ -5,12 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Georgi Dimitrov — Portfolio</title>
 
-  <!-- Prevent theme flash -->
   <script>
-    (function () {
+    try {
       const saved = localStorage.getItem('theme') || 'dark';
       document.documentElement.setAttribute('data-theme', saved);
-    })();
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
   </script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -20,33 +21,33 @@
   <style>
     :root,
     [data-theme="dark"] {
-      --bg: #090c12;
-      --surface: rgba(88, 166, 255, 0.05);
-      --surface-hover: rgba(88, 166, 255, 0.1);
-      --nav-bg: rgba(13, 17, 23, 0.78);
-      --border: rgba(88, 166, 255, 0.14);
-      --border-hover: rgba(88, 166, 255, 0.42);
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface-hover: #1c2330;
+      --nav-bg: rgba(13, 17, 23, 0.9);
+      --border: #30363d;
+      --border-hover: #58a6ff;
       --text: #e6edf3;
-      --subtext: #9aa4b2;
+      --subtext: #8b949e;
       --accent: #58a6ff;
-      --accent-rgb: 88, 166, 255;
+      --accent-soft: rgba(88, 166, 255, 0.12);
       --card-img-bg: #111622;
-      --shadow: 0 20px 50px rgba(0, 0, 0, 0.45);
+      --shadow: 0 14px 36px rgba(0, 0, 0, 0.35);
     }
 
     [data-theme="light"] {
       --bg: #f6f8fc;
-      --surface: rgba(37, 99, 235, 0.045);
-      --surface-hover: rgba(37, 99, 235, 0.09);
-      --nav-bg: rgba(255, 255, 255, 0.82);
-      --border: rgba(37, 99, 235, 0.16);
-      --border-hover: rgba(37, 99, 235, 0.45);
+      --surface: #ffffff;
+      --surface-hover: #f0f5ff;
+      --nav-bg: rgba(255, 255, 255, 0.9);
+      --border: #d0d7de;
+      --border-hover: #2563eb;
       --text: #0f172a;
       --subtext: #475569;
       --accent: #2563eb;
-      --accent-rgb: 37, 99, 235;
+      --accent-soft: rgba(37, 99, 235, 0.1);
       --card-img-bg: #e2e8f0;
-      --shadow: 0 16px 40px rgba(15, 23, 42, 0.08);
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
     }
 
     * {
@@ -66,26 +67,11 @@
       line-height: 1.6;
       overflow-x: hidden;
       min-height: 100vh;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     h1, h2, h3 {
       font-family: "Space Grotesk", -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    /* ===== Starfield Background ===== */
-    #starfield {
-      position: fixed;
-      inset: 0;
-      z-index: -10;
-      pointer-events: none;
-      mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);
-      -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 100%);
-    }
-
-    @keyframes twinkle {
-      0%, 100% { opacity: 0.08; transform: scale(0.8); }
-      50% { opacity: 0.75; transform: scale(1.25); }
     }
 
     /* ===== Theme Toggle ===== */
@@ -99,13 +85,11 @@
       border-radius: 999px;
       border: 1px solid var(--border);
       background: var(--nav-bg);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
       color: var(--accent);
       display: grid;
       place-items: center;
       cursor: pointer;
-      transition: transform 0.25s ease, border-color 0.25s ease;
+      transition: transform 0.2s ease, border-color 0.2s ease;
     }
 
     #theme-toggle:hover {
@@ -122,20 +106,18 @@
       left: 50%;
       transform: translateX(-50%);
       top: 1.25rem;
-      width: min(860px, 84%);
+      width: min(820px, 84%);
       z-index: 50;
       border-radius: 999px;
       border: 1px solid transparent;
-      transition: width 0.35s ease, background-color 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+      transition: width 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
     }
 
     #main-nav.scrolling {
       background: var(--nav-bg);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
       border-color: var(--border);
       box-shadow: var(--shadow);
-      width: min(620px, 90%);
+      width: min(600px, 90%);
     }
 
     #main-nav ul {
@@ -143,8 +125,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 2.5rem;
-      padding: 0.85rem 1.5rem;
+      gap: 2.25rem;
+      padding: 0.8rem 1.5rem;
     }
 
     #main-nav a {
@@ -157,7 +139,7 @@
       color: var(--subtext);
       font-size: 0.92rem;
       font-weight: 500;
-      transition: color 0.25s ease;
+      transition: color 0.2s ease;
     }
 
     #main-nav a:hover,
@@ -167,16 +149,15 @@
 
     .nav-dot {
       position: absolute;
-      left: -14px;
+      left: -13px;
       top: 50%;
       transform: translateY(-50%) scale(0);
       width: 6px;
       height: 6px;
       border-radius: 50%;
       background: var(--accent);
-      box-shadow: 0 0 10px var(--accent);
       opacity: 0;
-      transition: all 0.25s ease;
+      transition: all 0.2s ease;
     }
 
     #main-nav a.active .nav-dot {
@@ -190,28 +171,28 @@
       height: 20px;
     }
 
-    /* ===== Layout & Reveal ===== */
+    /* ===== Layout ===== */
     main {
-      max-width: 1120px;
+      max-width: 1100px;
       margin: 0 auto;
       padding: 0 1.5rem 5rem;
     }
 
     section {
-      padding: 5.5rem 0 2rem;
+      padding: 5.5rem 0 1.5rem;
     }
 
     .section-header {
-      margin-bottom: 2.75rem;
+      margin-bottom: 2.25rem;
     }
 
     .section-header h2 {
-      font-size: clamp(1.85rem, 3.2vw, 2.35rem);
+      font-size: clamp(1.8rem, 3.2vw, 2.3rem);
       font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 0.7rem;
-      margin-bottom: 0.45rem;
+      gap: 0.65rem;
+      margin-bottom: 0.4rem;
     }
 
     .section-header h2 span {
@@ -224,32 +205,16 @@
       max-width: 560px;
     }
 
-    .reveal-item {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: opacity 0.65s ease, transform 0.65s ease;
-    }
-
-    .reveal-item.reveal {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
     /* ===== Hero ===== */
     #home {
-      min-height: 88vh;
+      min-height: 82vh;
       padding-top: 7.5rem;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      gap: 0.65rem;
-    }
-
-    .avatar-wrap {
-      position: relative;
-      margin-bottom: 0.6rem;
+      gap: 0.6rem;
     }
 
     .avatar {
@@ -258,14 +223,14 @@
       border-radius: 50%;
       border: 2px solid var(--accent);
       overflow: hidden;
-      background: var(--card-img-bg);
+      background: var(--surface);
       display: grid;
       place-items: center;
       font-family: "Space Grotesk", sans-serif;
       font-size: 1.75rem;
       font-weight: 700;
       color: var(--accent);
-      box-shadow: 0 0 45px rgba(var(--accent-rgb), 0.32);
+      margin-bottom: 0.5rem;
     }
 
     .avatar img {
@@ -275,16 +240,6 @@
       display: block;
     }
 
-    .avatar-glow {
-      position: absolute;
-      inset: 0;
-      border-radius: 50%;
-      background: var(--accent);
-      filter: blur(55px);
-      opacity: 0.22;
-      z-index: -1;
-    }
-
     .hero-eyebrow {
       color: var(--subtext);
       font-weight: 300;
@@ -292,7 +247,7 @@
     }
 
     #home h1 {
-      font-size: clamp(2.6rem, 6.5vw, 4.4rem);
+      font-size: clamp(2.5rem, 6vw, 4.2rem);
       font-weight: 700;
       letter-spacing: -0.03em;
       line-height: 1.08;
@@ -302,69 +257,51 @@
       color: var(--accent);
       font-size: 1rem;
       font-weight: 500;
-      margin-top: 0.25rem;
+      margin-top: 0.2rem;
     }
 
     .hero-bio {
-      max-width: 680px;
+      max-width: 660px;
       color: var(--subtext);
-      font-size: 1.02rem;
+      font-size: 1rem;
       line-height: 1.7;
-      margin: 0.85rem auto 0;
+      margin: 0.75rem auto 0;
     }
 
-    /* Resume Pill Button */
     .resume-btn {
-      margin-top: 1.6rem;
-      position: relative;
+      margin-top: 1.4rem;
       display: inline-flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 0.7rem 2.4rem;
+      padding: 0.7rem 2.3rem;
       border-radius: 999px;
       text-decoration: none;
       color: var(--text);
-      border: 1px solid rgba(var(--accent-rgb), 0.45);
-      background: rgba(var(--accent-rgb), 0.1);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+      border: 1px solid var(--accent);
+      background: var(--accent-soft);
+      transition: transform 0.2s ease, background-color 0.2s ease;
     }
 
     .resume-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 26px rgba(var(--accent-rgb), 0.35);
-      background: rgba(var(--accent-rgb), 0.16);
+      transform: translateY(-2px);
+      background: var(--surface-hover);
     }
 
     .resume-main {
-      font-size: 0.96rem;
-      font-weight: 500;
-      transform: translateY(6px);
-      transition: transform 0.25s ease;
+      font-size: 0.95rem;
+      font-weight: 600;
     }
 
     .resume-sub {
-      font-size: 0.68rem;
+      font-size: 0.7rem;
       color: var(--subtext);
-      opacity: 0;
-      transform: translateY(4px);
-      transition: opacity 0.25s ease, transform 0.25s ease;
     }
 
-    .resume-btn:hover .resume-main {
-      transform: translateY(0);
-    }
-
-    .resume-btn:hover .resume-sub {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* Social Icons Row */
     .social-row {
       display: flex;
       gap: 1.65rem;
-      margin-top: 1.4rem;
+      margin-top: 1.5rem;
     }
 
     .social-link {
@@ -374,40 +311,34 @@
       flex-direction: column;
       align-items: center;
       text-decoration: none;
-      transition: color 0.25s ease, transform 0.25s ease;
+      transition: color 0.2s ease, transform 0.2s ease;
     }
 
     .social-link:hover {
       color: var(--accent);
-      transform: scale(1.12);
+      transform: scale(1.1);
     }
 
     .social-link svg {
-      width: 30px;
-      height: 30px;
+      width: 28px;
+      height: 28px;
     }
 
     .social-label {
-      position: absolute;
-      bottom: -22px;
+      margin-top: 0.25rem;
       font-size: 0.72rem;
-      color: var(--accent);
-      opacity: 0;
-      transform: scale(0.8);
-      transition: all 0.2s ease;
-      white-space: nowrap;
+      color: var(--subtext);
     }
 
     .social-link:hover .social-label {
-      opacity: 1;
-      transform: scale(1);
+      color: var(--accent);
     }
 
     /* ===== Project Cards ===== */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-      gap: 1.75rem;
+      gap: 1.6rem;
     }
 
     .project-card {
@@ -417,12 +348,12 @@
       overflow: hidden;
       display: flex;
       flex-direction: column;
-      transition: border-color 0.35s ease, transform 0.35s ease, box-shadow 0.35s ease;
+      transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
     }
 
     .project-card:hover {
       border-color: var(--border-hover);
-      transform: translateY(-4px);
+      transform: translateY(-3px);
       box-shadow: var(--shadow);
     }
 
@@ -432,6 +363,7 @@
       overflow: hidden;
       background: var(--card-img-bg);
       display: block;
+      text-decoration: none;
     }
 
     .card-media img {
@@ -441,7 +373,7 @@
       height: 100%;
       object-fit: cover;
       opacity: 0;
-      transition: opacity 0.9s ease, transform 0.8s ease;
+      transition: opacity 0.8s ease, transform 0.6s ease;
     }
 
     .card-media img.active {
@@ -450,10 +382,9 @@
     }
 
     .project-card:hover .card-media img.active {
-      transform: scale(1.06);
+      transform: scale(1.05);
     }
 
-    /* Stylized fallback when no screenshot file is uploaded yet */
     .media-fallback {
       position: absolute;
       inset: 0;
@@ -461,18 +392,18 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.45rem;
+      gap: 0.4rem;
       padding: 1.25rem;
       text-align: center;
-      background: radial-gradient(circle at top right, rgba(var(--accent-rgb), 0.22), transparent 60%), var(--card-img-bg);
+      background: var(--card-img-bg);
       color: var(--subtext);
       font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-      font-size: 0.78rem;
+      font-size: 0.8rem;
     }
 
     .media-fallback strong {
       color: var(--accent);
-      font-size: 0.95rem;
+      font-size: 1rem;
       letter-spacing: 0.06em;
     }
 
@@ -486,24 +417,20 @@
     }
 
     .platform-badge {
-      padding: 0.35rem 0.5rem;
+      padding: 0.3rem 0.55rem;
       border-radius: 8px;
       background: var(--nav-bg);
-      backdrop-filter: blur(8px);
       border: 1px solid var(--border);
       color: var(--text);
-      font-size: 0.7rem;
+      font-size: 0.72rem;
       font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
     }
 
     .card-body {
       padding: 1.4rem;
       display: flex;
       flex-direction: column;
-      gap: 0.9rem;
+      gap: 0.85rem;
       flex: 1;
     }
 
@@ -531,7 +458,7 @@
 
     .card-ext-link {
       color: var(--accent);
-      opacity: 0.8;
+      opacity: 0.85;
       transition: opacity 0.2s ease, transform 0.2s ease;
     }
 
@@ -555,33 +482,28 @@
     }
 
     .tag {
-      font-size: 0.72rem;
-      padding: 0.28rem 0.7rem;
+      font-size: 0.73rem;
+      padding: 0.26rem 0.65rem;
       border-radius: 6px;
-      background: var(--surface);
-      border: 1px solid var(--border);
+      background: var(--accent-soft);
+      border: 1px solid transparent;
       color: var(--accent);
-      transition: border-color 0.25s ease;
-    }
-
-    .project-card:hover .tag {
-      border-color: var(--border-hover);
+      font-weight: 500;
     }
 
     /* ===== 3D Game WIP Showcase ===== */
     .wip-card {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 18px;
+      border-radius: 16px;
       overflow: hidden;
       display: grid;
       grid-template-columns: 1.35fr 1fr;
-      gap: 0;
     }
 
     .wip-gallery {
       padding: 1.25rem;
-      background: rgba(0, 0, 0, 0.14);
+      border-right: 1px solid var(--border);
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
@@ -598,15 +520,12 @@
     }
 
     .wip-stage img {
+      position: relative;
+      z-index: 2;
       width: 100%;
       height: 100%;
       object-fit: cover;
       display: block;
-      transition: transform 0.4s ease;
-    }
-
-    .wip-stage:hover img {
-      transform: scale(1.03);
     }
 
     .wip-thumbs {
@@ -620,12 +539,12 @@
       aspect-ratio: 16 / 10;
       border-radius: 8px;
       overflow: hidden;
-      border: 2px solid transparent;
+      border: 2px solid var(--border);
       background: var(--card-img-bg);
       cursor: pointer;
       padding: 0;
       transition: border-color 0.2s ease, opacity 0.2s ease;
-      opacity: 0.7;
+      opacity: 0.75;
     }
 
     .wip-thumb.active,
@@ -635,6 +554,8 @@
     }
 
     .wip-thumb img {
+      position: relative;
+      z-index: 2;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -642,8 +563,8 @@
     }
 
     .thumb-placeholder {
-      width: 100%;
-      height: 100%;
+      position: absolute;
+      inset: 0;
       display: grid;
       place-items: center;
       font-size: 0.72rem;
@@ -670,8 +591,8 @@
       letter-spacing: 0.1em;
       padding: 0.3rem 0.75rem;
       border-radius: 999px;
-      background: rgba(var(--accent-rgb), 0.12);
-      border: 1px solid rgba(var(--accent-rgb), 0.35);
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
       color: var(--accent);
     }
 
@@ -680,16 +601,10 @@
       height: 7px;
       border-radius: 50%;
       background: var(--accent);
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0.6); }
-      50% { opacity: 0.6; box-shadow: 0 0 0 6px rgba(var(--accent-rgb), 0); }
     }
 
     .wip-info h3 {
-      font-size: 1.55rem;
+      font-size: 1.5rem;
       line-height: 1.2;
     }
 
@@ -710,8 +625,7 @@
       position: fixed;
       inset: 0;
       z-index: 100;
-      background: rgba(5, 8, 14, 0.9);
-      backdrop-filter: blur(8px);
+      background: rgba(5, 8, 14, 0.92);
       display: none;
       align-items: center;
       justify-content: center;
@@ -728,14 +642,13 @@
       max-height: 86vh;
       border-radius: 12px;
       border: 1px solid var(--border-hover);
-      box-shadow: 0 25px 70px rgba(0, 0, 0, 0.7);
     }
 
     /* ===== Tech Stack ===== */
     .tech-groups {
       display: flex;
       flex-direction: column;
-      gap: 2.25rem;
+      gap: 2rem;
     }
 
     .tech-group h3 {
@@ -743,15 +656,15 @@
       font-size: 0.72rem;
       font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.3em;
+      letter-spacing: 0.28em;
       color: var(--subtext);
-      margin-bottom: 0.9rem;
+      margin-bottom: 0.85rem;
     }
 
     .tech-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(225px, 1fr));
-      gap: 1rem;
+      gap: 0.95rem;
     }
 
     .skill-card {
@@ -762,12 +675,11 @@
       background: var(--surface);
       border: 1px solid var(--border);
       overflow: hidden;
-      transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+      transition: border-color 0.2s ease, transform 0.2s ease;
     }
 
     .skill-card:hover {
       border-color: var(--border-hover);
-      background: var(--surface-hover);
       transform: translateY(-2px);
     }
 
@@ -776,21 +688,16 @@
       flex-shrink: 0;
       display: grid;
       place-items: center;
-      background: rgba(var(--accent-rgb), 0.13);
+      background: var(--accent-soft);
       color: var(--accent);
       font-family: "Space Grotesk", sans-serif;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
     }
 
     .skill-icon svg {
-      width: 26px;
-      height: 26px;
-      transition: transform 0.25s ease;
-    }
-
-    .skill-card:hover .skill-icon svg {
-      transform: scale(1.1);
+      width: 24px;
+      height: 24px;
     }
 
     .skill-content {
@@ -848,32 +755,26 @@
 
     .contact-card {
       width: 245px;
-      padding: 1.9rem 1.25rem;
+      padding: 1.8rem 1.25rem;
       border-radius: 16px;
       background: var(--surface);
       border: 1px solid var(--border);
       text-align: center;
       text-decoration: none;
       color: var(--text);
-      transition: border-color 0.25s ease, background-color 0.25s ease, transform 0.25s ease;
+      transition: border-color 0.2s ease, transform 0.2s ease;
     }
 
     .contact-card:hover {
       border-color: var(--border-hover);
-      background: var(--surface-hover);
-      transform: translateY(-4px);
+      transform: translateY(-3px);
     }
 
     .contact-card svg {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       color: var(--accent);
-      margin-bottom: 0.75rem;
-      transition: transform 0.25s ease;
-    }
-
-    .contact-card:hover svg {
-      transform: scale(1.1);
+      margin-bottom: 0.7rem;
     }
 
     .contact-card h3 {
@@ -890,8 +791,8 @@
     }
 
     footer {
-      margin-top: 4.5rem;
-      padding-top: 1.75rem;
+      margin-top: 4rem;
+      padding-top: 1.6rem;
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-between;
@@ -902,25 +803,24 @@
       color: var(--subtext);
     }
 
-    /* ===== Back to Top Progress Button ===== */
+    /* ===== Back to Top ===== */
     #to-top {
       position: fixed;
       right: 1.5rem;
       bottom: 1.5rem;
       z-index: 55;
-      width: 54px;
-      height: 54px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       border: 1px solid var(--border);
       background: var(--nav-bg);
-      backdrop-filter: blur(10px);
       display: grid;
       place-items: center;
       cursor: pointer;
       opacity: 0;
       transform: translateY(20px);
       pointer-events: none;
-      transition: opacity 0.35s ease, transform 0.35s ease;
+      transition: opacity 0.3s ease, transform 0.3s ease;
     }
 
     #to-top.visible {
@@ -930,8 +830,8 @@
     }
 
     #to-top .progress-svg {
-      width: 54px;
-      height: 54px;
+      width: 52px;
+      height: 52px;
       transform: rotate(-90deg);
     }
 
@@ -940,17 +840,17 @@
       color: var(--accent);
       display: grid;
       place-items: center;
-      transition: transform 0.2s ease;
-    }
-
-    #to-top:hover .arrow {
-      transform: translateY(-2px);
     }
 
     /* ===== Responsive ===== */
     @media (max-width: 820px) {
       .wip-card {
         grid-template-columns: 1fr;
+      }
+
+      .wip-gallery {
+        border-right: none;
+        border-bottom: 1px solid var(--border);
       }
     }
 
@@ -960,8 +860,6 @@
         bottom: 0.75rem;
         width: 94% !important;
         background: var(--nav-bg);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
         border-color: var(--border);
         box-shadow: var(--shadow);
       }
@@ -984,10 +882,561 @@
         display: none;
       }
 
-      .resume-main {
-        transform: translateY(0);
+      #to-top {
+        bottom: 5.2rem;
+        right: 1rem;
       }
 
-      .resume-sub {
-        opacity: 1;
-        transform: translateY(0);
+      main {
+        padding-bottom: 6.5rem;
+      }
+
+      .contact-card {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Theme Toggle -->
+  <button id="theme-toggle" aria-label="Toggle Theme">
+    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    </svg>
+  </button>
+
+  <!-- Navigation -->
+  <nav id="main-nav">
+    <ul>
+      <li>
+        <a href="#home" class="active">
+          <span class="nav-dot"></span>
+          <svg class="nav-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M10 20v-6h4v6h5v-8h3L12 3L2 12h3v8z"/></svg>
+          <span>Home</span>
+        </a>
+      </li>
+      <li>
+        <a href="#projects">
+          <span class="nav-dot"></span>
+          <svg class="nav-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v10H4m16 2a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4c-1.11 0-2 .89-2 2v10a2 2 0 0 0 2 2H0v2h24v-2z"/></svg>
+          <span>Projects</span>
+        </a>
+      </li>
+      <li>
+        <a href="#wip">
+          <span class="nav-dot"></span>
+          <svg class="nav-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M6 22a3 3 0 0 1-3-3c0-.6.18-1.16.5-1.63L9 7.81V6a1 1 0 0 1-1-1V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v1a1 1 0 0 1-1 1v1.81l5.5 9.56c.32.47.5 1.03.5 1.63a3 3 0 0 1-3 3z"/></svg>
+          <span>In Progress</span>
+        </a>
+      </li>
+      <li>
+        <a href="#tech">
+          <span class="nav-dot"></span>
+          <svg class="nav-icon" viewBox="0 0 24 24"><path fill="currentColor" d="m14.6 16.6l4.6-4.6l-4.6-4.6L16 6l6 6l-6 6zm-5.2 0L4.8 12l4.6-4.6L8 6l-6 6l6 6z"/></svg>
+          <span>Tech</span>
+        </a>
+      </li>
+      <li>
+        <a href="#contact">
+          <span class="nav-dot"></span>
+          <svg class="nav-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M20 2H4a2 2 0 0 0-2 2v18l4-4h14a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2"/></svg>
+          <span>Contact</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <main>
+    <!-- ===== HOME / HERO ===== -->
+    <section id="home">
+      <div class="avatar">
+        <img src="images/me.jpg" alt="Georgi Dimitrov" onerror="this.remove();" />
+        <span>GD</span>
+      </div>
+
+      <p class="hero-eyebrow">Hello, I'm</p>
+      <h1>Georgi Dimitrov</h1>
+      <p class="hero-role">Software Engineering Student @ FMI, Sofia University</p>
+
+      <p class="hero-bio">
+        Passionate about C++, object-oriented architecture, algorithms, game development, and 3D modeling in Blender.
+        I enjoy building clean systems from the ground up — from console simulations and game mechanics to interactive 3D worlds in Unity.
+      </p>
+
+      <a href="cv.pdf" target="_blank" rel="noopener noreferrer" class="resume-btn">
+        <span class="resume-main">View Resume</span>
+        <span class="resume-sub">Opens PDF file</span>
+      </a>
+
+      <div class="social-row">
+        <a class="social-link" href="mailto:georgi.dimitrov.ntf@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="m20 8l-8 5l-8-5V6l8 5l8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg>
+          <span class="social-label">Email</span>
+        </a>
+        <a class="social-link" href="https://linkedin.com/in/georgi-dimitrov-885baa28b" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"/></svg>
+          <span class="social-label">LinkedIn</span>
+        </a>
+        <a class="social-link" href="https://github.com/GeorgiDim8" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+          <span class="social-label">GitHub</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ===== FEATURED PROJECTS ===== -->
+    <section id="projects">
+      <div class="section-header">
+        <h2><span>/</span> Featured Projects</h2>
+        <p>Completed university and C++ software engineering projects:</p>
+      </div>
+
+      <div class="projects-grid">
+        <!-- Project 1: Barn Boss -->
+        <article class="project-card">
+          <a href="https://github.com/GeorgiDim8/BarnBoss_Game" target="_blank" rel="noopener noreferrer" class="card-media image-slider">
+            <div class="media-fallback">
+              <strong>BARN BOSS</strong>
+              <span>C++ OOP Farm Management Simulation</span>
+            </div>
+            <img src="images/barnboss1.png" alt="Barn Boss screenshot 1" class="active" onerror="this.remove();" />
+            <img src="images/barnboss2.png" alt="Barn Boss screenshot 2" onerror="this.remove();" />
+            <div class="platform-badges">
+              <span class="platform-badge">Console · C++</span>
+            </div>
+          </a>
+
+          <div class="card-body">
+            <div class="card-top">
+              <div>
+                <span class="card-category">OOP Course Project · FMI</span>
+                <h3 class="card-title">Barn Boss</h3>
+              </div>
+              <a class="card-ext-link" href="https://github.com/GeorgiDim8/BarnBoss_Game" target="_blank" rel="noopener noreferrer" aria-label="Open Barn Boss repository">
+                <svg width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg>
+              </a>
+            </div>
+            <p class="card-desc">
+              Multi-user object-oriented farm management simulation featuring role-based permissions
+              (Player, MarketManager, TaskManager), shared market economy, cycle-based growth, global scoreboard, and file persistence.
+            </p>
+            <div class="tag-row">
+              <span class="tag">C++</span>
+              <span class="tag">OOP Architecture</span>
+              <span class="tag">Factory &amp; Command Patterns</span>
+              <span class="tag">File I/O</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2: ASCII Knight -->
+        <article class="project-card">
+          <a href="https://github.com/GeorgiDim8/ASCII_Knight_Game" target="_blank" rel="noopener noreferrer" class="card-media image-slider">
+            <div class="media-fallback">
+              <strong>ASCII KNIGHT</strong>
+              <span>@  /-\  vs  [E] [J] [F] [C] [B]</span>
+            </div>
+            <img src="images/knight1.png" alt="ASCII Knight screenshot 1" class="active" onerror="this.remove();" />
+            <img src="images/knight2.png" alt="ASCII Knight screenshot 2" onerror="this.remove();" />
+            <div class="platform-badges">
+              <span class="platform-badge">Windows · C++</span>
+            </div>
+          </a>
+
+          <div class="card-body">
+            <div class="card-top">
+              <div>
+                <span class="card-category">Programming Practicum · FMI</span>
+                <h3 class="card-title">ASCII Knight</h3>
+              </div>
+              <a class="card-ext-link" href="https://github.com/GeorgiDim8/ASCII_Knight_Game" target="_blank" rel="noopener noreferrer" aria-label="Open ASCII Knight repository">
+                <svg width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M14 3v2h3.59l-9.83 9.83l1.41 1.41L19 6.41V10h2V3m-2 16H5V5h7V3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7h-2z"/></svg>
+              </a>
+            </div>
+            <p class="card-desc">
+              Windows console action-platformer with double-jump gravity physics, 4-directional combat,
+              procedurally generated platforms, 5 distinct enemy AI types, escalating waves, and a 3×3 boss fight.
+            </p>
+            <div class="tag-row">
+              <span class="tag">C++</span>
+              <span class="tag">Win32 Console</span>
+              <span class="tag">Game Loop &amp; Physics</span>
+              <span class="tag">Procedural Arena</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== CURRENTLY WORKING ON (3D GAME SHOWCASE) ===== -->
+    <section id="wip">
+      <div class="section-header">
+        <h2><span>/</span> Currently Working On</h2>
+        <p>Early visual previews of my ongoing 3D game project (click any screenshot to enlarge):</p>
+      </div>
+
+      <div class="wip-card">
+        <div class="wip-gallery">
+          <div class="wip-stage" id="wip-stage" title="Click to enlarge">
+            <div class="media-fallback">
+              <strong>3D GAME PREVIEW</strong>
+              <span>Place screenshots at images/3d-1.png … images/3d-4.png</span>
+            </div>
+            <img id="wip-main-img" src="images/3d-1.png" alt="3D Game preview" onerror="this.style.display='none';" />
+          </div>
+
+          <div class="wip-thumbs">
+            <button class="wip-thumb active" type="button" data-src="images/3d-1.png" aria-label="Screenshot 1">
+              <span class="thumb-placeholder">Shot 01</span>
+              <img src="images/3d-1.png" alt="3D Game thumbnail 1" onerror="this.remove();" />
+            </button>
+            <button class="wip-thumb" type="button" data-src="images/3d-2.png" aria-label="Screenshot 2">
+              <span class="thumb-placeholder">Shot 02</span>
+              <img src="images/3d-2.png" alt="3D Game thumbnail 2" onerror="this.remove();" />
+            </button>
+            <button class="wip-thumb" type="button" data-src="images/3d-3.png" aria-label="Screenshot 3">
+              <span class="thumb-placeholder">Shot 03</span>
+              <img src="images/3d-3.png" alt="3D Game thumbnail 3" onerror="this.remove();" />
+            </button>
+            <button class="wip-thumb" type="button" data-src="images/3d-4.png" aria-label="Screenshot 4">
+              <span class="thumb-placeholder">Shot 04</span>
+              <img src="images/3d-4.png" alt="3D Game thumbnail 4" onerror="this.remove();" />
+            </button>
+          </div>
+        </div>
+
+        <div class="wip-info">
+          <span class="status-pill">
+            <span class="status-dot"></span>
+            In Development
+          </span>
+
+          <h3>3D Game Prototype</h3>
+
+          <p>
+            A personal 3D game project currently in active development, combining custom 3D environments and assets modeled in Blender
+            with gameplay prototyping and scripting in Unity.
+          </p>
+
+          <p class="wip-note">
+            Currently showcasing early environment &amp; asset screenshots — playable build and source code coming once core gameplay milestones are complete.
+          </p>
+
+          <div class="tag-row">
+            <span class="tag">Unity</span>
+            <span class="tag">Blender 3D</span>
+            <span class="tag">Game Scripting</span>
+            <span class="tag">Level Design</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TECH STACK ===== -->
+    <section id="tech">
+      <div class="section-header">
+        <h2><span>/</span> Tech Stack</h2>
+        <p>Technical skills categorized by domain with self-assessed proficiency levels (out of 5):</p>
+      </div>
+
+      <div class="tech-groups">
+        <div class="tech-group">
+          <h3>Languages &amp; Computer Science</h3>
+          <div class="tech-grid">
+            <div class="skill-card">
+              <div class="skill-icon">C++</div>
+              <div class="skill-content">
+                <div class="skill-top">
+                  <span class="skill-name">C++</span>
+                  <span class="skill-score">5/5</span>
+                </div>
+                <div class="skill-dots" aria-label="5 out of 5">
+                  <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-icon">DSA</div>
+              <div class="skill-content">
+                <div class="skill-top">
+                  <span class="skill-name">Data Structures &amp; Alg.</span>
+                  <span class="skill-score">4/5</span>
+                </div>
+                <div class="skill-dots" aria-label="4 out of 5">
+                  <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-icon">Java</div>
+              <div class="skill-content">
+                <div class="skill-top">
+                  <span class="skill-name">Java</span>
+                  <span class="skill-score">3/5</span>
+                </div>
+                <div class="skill-dots" aria-label="3 out of 5">
+                  <i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-group">
+          <h3>Game Development &amp; 3D</h3>
+          <div class="tech-grid">
+            <div class="skill-card">
+              <div class="skill-icon">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12.5 3.1c-.4-.3-1-.2-1.3.2c-.3.4-.2 1 .2 1.3l3.1 2.4H6.9c-.5 0-.9.4-.9.9s.4.9.9.9h4.6l-8.2 6.4c-.4.3-.5.9-.2 1.3c.3.4.9.5 1.3.2l4.4-3.5c-.1.4-.1.8-.1 1.2c0 3.7 3 6.7 6.8 6.7s6.8-3 6.8-6.7c0-2.2-1.1-4.2-2.8-5.4zm3 15.2c-2.2 0-4-1.7-4-3.9s1.8-3.9 4-3.9s4 1.7 4 3.9s-1.8 3.9-4 3.9m0-6.1c-1.2 0-2.2 1-2.2 2.2s1 2.2 2.2 2.2s2.2-1 2.2-2.2s-1-2.2-2.2-2.2"/></svg>
+              </div>
+              <div class="skill-content">
+                <div class="skill-top">
+                  <span class="skill-name">Blender</span>
+                  <span class="skill-score">4/5</span>
+                </div>
+                <div class="skill-dots" aria-label="4 out of 5">
+                  <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-icon">
+                <svg viewBox="0 0 24 24"><path fill="currentColor" d="m10.4 17.8l-2.9-1.7l-2.9 1.7L12 22l7.4-4.2l-2.9-1.7l-2.9 1.7c-.2.1-.5 0-.5-.3v-3.9c0-.2.1-.4.3-.5l3.5-2c.2-.1.5 0 .5.3v3.3l2.9 1.7V7.8L12 12.6v9.4zm1.6-6.8l7.4-4.3L12 2.5L4.6 6.7zm-9.4-3.2v8.6l2.9-1.7v-3.3c0-.3.3-.4.5-.3l3.5 2c.2.1.3.3.3.5v3.9c0 .3-.3.4-.5.3l-2.9-1.7l-2.9 1.7l7.4 4.2v-9.4z"/></svg>
+              </div>
+              <div class="skill-content">
+                <div class="skill-top">
+                  <span class="skill-name">Unity</span>
+                  <span class="skill-score">3/5</span>
+                </div>
+                <div class="skill-dots" aria-label="3 out of 5">
+                  <i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-icon">{ }</div>
+              <div class="skill-content">
+                <div class="skill-top">
+                  <span class="skill-name">C++ Game Scripting</span>
+                  <span class="skill-score">3/5</span>
+                </div>
+                <div class="skill-dots" aria-label="3 out of 5">
+                  <i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tech-group">
+          <h3>Tools &amp; Workflow</h3>
+          <div class="tech-grid">
+            <div class="skill-card">
+              <div class="skill-icon">OOP</div>
+              <div class="skill-content">
+                <span class="skill-name">Object-Oriented Design</span>
+              </div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-icon">Git</div>
+              <div class="skill-content">
+                <span class="skill-name">Git &amp; GitHub</span>
+              </div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-icon">VS</div>
+              <div class="skill-content">
+                <span class="skill-name">Visual Studio</span>
+              </div>
+            </div>
+
+            <div class="skill-card">
+              <div class="skill-icon">g++</div>
+              <div class="skill-content">
+                <span class="skill-name">MinGW / g++</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT ===== -->
+    <section id="contact">
+      <div class="section-header">
+        <h2><span>/</span> Contact Me</h2>
+        <p>Open to collaboration, projects, and software engineering opportunities.</p>
+      </div>
+
+      <div class="contact-grid">
+        <a href="mailto:georgi.dimitrov.ntf@gmail.com" class="contact-card">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="m20 8l-8 5l-8-5V6l8 5l8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg>
+          <h3>Email</h3>
+          <p>georgi.dimitrov.ntf@gmail.com</p>
+        </a>
+
+        <a href="https://linkedin.com/in/georgi-dimitrov-885baa28b" target="_blank" rel="noopener noreferrer" class="contact-card">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93zM6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37z"/></svg>
+          <h3>LinkedIn</h3>
+          <p>in/georgi-dimitrov-885baa28b</p>
+        </a>
+
+        <a href="https://github.com/GeorgiDim8" target="_blank" rel="noopener noreferrer" class="contact-card">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5c.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34c-.46-1.16-1.11-1.47-1.11-1.47c-.91-.62.07-.6.07-.6c1 .07 1.53 1.03 1.53 1.03c.87 1.52 2.34 1.07 2.91.83c.09-.65.35-1.09.63-1.34c-2.22-.25-4.55-1.11-4.55-4.92c0-1.11.38-2 1.03-2.71c-.1-.25-.45-1.29.1-2.64c0 0 .84-.27 2.75 1.02c.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02c.55 1.35.2 2.39.1 2.64c.65.71 1.03 1.6 1.03 2.71c0 3.82-2.34 4.66-4.57 4.91c.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+          <h3>GitHub</h3>
+          <p>github.com/GeorgiDim8</p>
+        </a>
+      </div>
+
+      <footer>
+        <span>Georgi Dimitrov &copy; 2026</span>
+        <span>Hosted on GitHub Pages</span>
+      </footer>
+    </section>
+  </main>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" aria-hidden="true">
+    <img id="lightbox-img" src="" alt="Enlarged preview" />
+  </div>
+
+  <!-- Back to Top -->
+  <button id="to-top" aria-label="Back to top">
+    <svg class="progress-svg" viewBox="0 0 56 56">
+      <circle cx="28" cy="28" r="24" fill="none" stroke="rgba(88,166,255,0.15)" stroke-width="3"></circle>
+      <circle id="progress-circle" cx="28" cy="28" r="24" fill="none" stroke="var(--accent)" stroke-width="3"
+              stroke-dasharray="150.8" stroke-dashoffset="150.8" stroke-linecap="round"></circle>
+    </svg>
+    <span class="arrow">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M13 7.83V20h-2V7.83l-5.36 5.36l-1.42-1.41L12 4l7.78 7.78l-1.42 1.41z"/>
+      </svg>
+    </span>
+  </button>
+
+  <script>
+    // 1. Theme Toggle
+    const toggleBtn = document.getElementById('theme-toggle');
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme') || 'dark';
+        const next = current === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', next);
+        try { localStorage.setItem('theme', next); } catch (e) {}
+      });
+    }
+
+    // 2. Navbar Scroll Effect + Active Section + Back-to-Top
+    const nav = document.getElementById('main-nav');
+    const toTop = document.getElementById('to-top');
+    const progressCircle = document.getElementById('progress-circle');
+    const circumference = 150.8;
+
+    function onScroll() {
+      const y = window.scrollY;
+      if (nav) nav.classList.toggle('scrolling', y > 30);
+
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const ratio = maxScroll > 0 ? Math.min(y / maxScroll, 1) : 0;
+      if (progressCircle) {
+        progressCircle.style.strokeDashoffset = (circumference - ratio * circumference).toFixed(1);
+      }
+      if (toTop) toTop.classList.toggle('visible', ratio > 0.2);
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    if (toTop) {
+      toTop.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    if ('IntersectionObserver' in window) {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('#main-nav a');
+      const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            navLinks.forEach((a) => a.classList.remove('active'));
+            const active = document.querySelector(`#main-nav a[href="#${entry.target.id}"]`);
+            if (active) active.classList.add('active');
+          }
+        });
+      }, { threshold: 0.35 });
+      sections.forEach((sec) => navObserver.observe(sec));
+    }
+
+    // 3. Auto Image Slider on Featured Project Cards
+    document.querySelectorAll('.image-slider').forEach((slider) => {
+      setInterval(() => {
+        const imgs = slider.querySelectorAll('img');
+        if (imgs.length <= 1) return;
+        const currentIdx = Array.from(imgs).findIndex((img) => img.classList.contains('active'));
+        const nextIdx = (currentIdx + 1) % imgs.length;
+        if (currentIdx >= 0) imgs[currentIdx].classList.remove('active');
+        imgs[nextIdx].classList.add('active');
+      }, 3500);
+    });
+
+    // 4. 3D Game Gallery & Lightbox
+    const wipMainImg = document.getElementById('wip-main-img');
+    const wipStage = document.getElementById('wip-stage');
+    const wipThumbs = document.querySelectorAll('.wip-thumb');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    wipThumbs.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        wipThumbs.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        if (!wipMainImg) return;
+        const src = btn.getAttribute('data-src');
+        wipMainImg.style.display = 'block';
+        wipMainImg.src = src;
+        wipMainImg.onerror = () => { wipMainImg.style.display = 'none'; };
+      });
+    });
+
+    if (wipStage && lightbox && lightboxImg && wipMainImg) {
+      wipStage.addEventListener('click', () => {
+        if (wipMainImg.style.display !== 'none' && wipMainImg.complete && wipMainImg.naturalWidth > 0) {
+          lightboxImg.src = wipMainImg.src;
+          lightbox.classList.add('open');
+          lightbox.setAttribute('aria-hidden', 'false');
+        }
+      });
+
+      lightbox.addEventListener('click', () => {
+        lightbox.classList.remove('open');
+        lightbox.setAttribute('aria-hidden', 'true');
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          lightbox.classList.remove('open');
+          lightbox.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
